@@ -21,6 +21,8 @@ function showReaction(type, clickedBox) {
     }
 }
 
+let nbBoxes = prompt("Please enter the number of boxes.");
+
 const box = document.createElement("div"); // Crée div
 box.classList.add("box"); // Y rajoute la classe box 
 
@@ -28,7 +30,7 @@ const board = document.querySelector("#board"); // Select board dans le DOM
 
 let nb = 1;
 
-for (let i = 1; i <= 10; i++) {
+for (let i = 1; i <= nbBoxes; i++) {
     let newbox = box.cloneNode();
     newbox.innerText = i;
     board.appendChild(newbox);
