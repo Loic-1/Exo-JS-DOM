@@ -16,10 +16,28 @@ box.classList.add("box"); // Y rajoute la classe box
 
 const board = document.querySelector("#board"); // Select board dans le DOM
 
+let nb = 1;
+
 for (let i = 1; i <= 10; i++) {
     let newbox = box.cloneNode();
     newbox.innerText = i;
     board.appendChild(newbox);
+
+    newbox.addEventListener("click", function () {
+        if (i == nb) {
+            console.log("Boite n° " + i);
+            newbox.classList.add("box-clicked");
+            nb++;
+        } else if (i > nb) {
+            alert("Erreur, recommencez !");
+            nb = 1;
+            board.querySelectorAll(".box-clicked").forEach(function (validBox) {
+                validBox.classList.remove("box-clicked");
+            });
+        } else {
+            alert("Case déjà cliquée !");
+        }
+    });
 }
 
 shuffleChildren(board); // mélange les enfants de board, soit les div.box
