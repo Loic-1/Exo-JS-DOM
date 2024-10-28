@@ -28,16 +28,19 @@ let pbList = [];
 
 // function qui effectue un compte à rebours de 30s à 00s
 function timer() { // https://stackoverflow.com/a/31559606
-    var sec = 30;
+    let sec = 30;
     // begin countdown
-    var timer = setInterval(function () {
+    let timer = setInterval(function () {
+        // remplace le texte dans le p timerDisplay
         document.getElementById('timerDisplay').innerHTML = '00:' + sec;
         sec--;
+        // si toutes les box ont étées cliquées dans le bon ordre
         if (nb == board.children.length + 1) {
             pb = '00:' + sec;
             console.log(pb);
             // stop countdown
             clearInterval(timer);
+            // rajoute le pb à la pbList
             pbList.push(pb);
             console.log(pbList);
         } else if (sec < 0) {
@@ -48,6 +51,7 @@ function timer() { // https://stackoverflow.com/a/31559606
     }, 1000);
 }
 
+// const du bouton de retry
 const retryBtn = document.getElementById("retryBtn");
 
 let nbBoxes = prompt("Please enter the number of boxes.");
@@ -55,15 +59,18 @@ let nbBoxes = prompt("Please enter the number of boxes.");
 const box = document.createElement("div"); // Crée div
 box.classList.add("box"); // Y rajoute la classe box 
 
+// le parent des .box
 const board = document.querySelector("#board"); // Select board dans le DOM
 
 let nb = 1;
 
 for (let i = 1; i <= nbBoxes; i++) {
+    // clone box pour changer son contenu de manière dynamique
     let newbox = box.cloneNode();
     newbox.innerText = i;
     board.appendChild(newbox);
 
+    // quand newbox est cliqué ...
     newbox.addEventListener("click", function () {
         if (i == nb) {
             newbox.classList.add("box-clicked");
