@@ -23,7 +23,7 @@ function showReaction(type, clickedBox) {
     }
 }
 
-let pb = "00:30";
+let pb = "00:00";
 let pbList = [];
 
 function timer() { // https://stackoverflow.com/a/31559606
@@ -35,10 +35,11 @@ function timer() { // https://stackoverflow.com/a/31559606
             pb = '00:' + sec;
             console.log(pb);
             clearInterval(timer);
+            // if (box.classList.contains("success")) {
             pbList.push(pb); // if success
+            // }
             console.log(pbList);
-        }
-        if (sec < 0) {
+        } else if (sec < 0) {
             clearInterval(timer);
         }
     }, 1000);
@@ -94,8 +95,12 @@ retryBtn.addEventListener("click", () => {
     nb = 1;
 
     shuffleChildren(board);
-
-    console.log("pbList: " + pbList);
 });
+
+// const PBDisplay = document.getElementById("PBDisplay");
+
+// const thDisplay = document.createElement("th");
+
+// PBDisplay.appendChild
 
 shuffleChildren(board); // mélange les enfants de board, soit les div.box
