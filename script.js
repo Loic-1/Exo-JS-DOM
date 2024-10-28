@@ -1,4 +1,4 @@
-function shuffleChildren(parent) {
+function shuffleChildren(parent) { // 
     let children = parent.children;
 
     let i = board.children.length, k, temp;
@@ -9,8 +9,6 @@ function shuffleChildren(parent) {
         board.children[k] = board.children[i]; // remplace lélément à la position k par l'élément à la position i
         board.appendChild(temp); // place l'élément k pointé temporairement à la fin du contenu de board
     }
-
-    timer();
 }
 
 function showReaction(type, clickedBox) {
@@ -23,25 +21,30 @@ function showReaction(type, clickedBox) {
     }
 }
 
-let pb = "00:00";
+// pb de base (timer)
+let pb = "00:30";
+// liste des pb
 let pbList = [];
 
+// function qui effectue un compte à rebours de 30s à 00s
 function timer() { // https://stackoverflow.com/a/31559606
     var sec = 30;
+    // begin countdown
     var timer = setInterval(function () {
         document.getElementById('timerDisplay').innerHTML = '00:' + sec;
         sec--;
         if (nb == board.children.length + 1) {
             pb = '00:' + sec;
             console.log(pb);
+            // stop countdown
             clearInterval(timer);
-            // if (box.classList.contains("success")) {
-            pbList.push(pb); // if success
-            // }
+            pbList.push(pb);
             console.log(pbList);
         } else if (sec < 0) {
+            // stop countdown
             clearInterval(timer);
         }
+        // intervalle de 1000ms
     }, 1000);
 }
 
@@ -72,7 +75,7 @@ for (let i = 1; i <= nbBoxes; i++) {
             // shuffleChildren(board);
             nb++;
         }
-        else if (i > nb) {
+        else if (i > nb) { // error
             showReaction("error", newbox);
             nb = 1;
             board.querySelectorAll(".box-clicked").forEach(function (validBox) {
@@ -94,13 +97,9 @@ retryBtn.addEventListener("click", () => {
 
     nb = 1;
 
+    timer();
+
     shuffleChildren(board);
 });
-
-// const PBDisplay = document.getElementById("PBDisplay");
-
-// const thDisplay = document.createElement("th");
-
-// PBDisplay.appendChild
 
 shuffleChildren(board); // mélange les enfants de board, soit les div.box
