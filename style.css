@@ -1,0 +1,32 @@
+#board {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 75px;
+    height: 75px;
+    bottom: 1px solid black;
+    background-color: cyan;
+    font-size: 3em;
+    text-align: center;
+    line-height: 75px;
+    margin: 5px;
+    animation: appear 1s;
+    border-radius: 6px;
+}
+
+.box-clicked {
+    background-color: #CCC;
+    color: #AAA;
+}
+
+@keyframes appear { /*Au chargement de la page*/
+    from {
+        transform: scale(0) rotate(180deg);
+    }
+
+    to {
+        transform: scale(1) rotate(0deg);
+    }
+}
