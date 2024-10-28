@@ -11,6 +11,16 @@ function shuffleChildren(parent) {
     }
 }
 
+function showReaction(type, clickedBox) {
+    clickedBox.classList.add(type);
+
+    if (type != "success") {
+        setTimeout(function () {
+            clickedBox.classList.remove(type);
+        }, 800)
+    }
+}
+
 const box = document.createElement("div"); // Crée div
 box.classList.add("box"); // Y rajoute la classe box 
 
@@ -25,17 +35,21 @@ for (let i = 1; i <= 10; i++) {
 
     newbox.addEventListener("click", function () {
         if (i == nb) {
-            console.log("Boite n° " + i);
             newbox.classList.add("box-clicked");
+            if (nb == board.children.length) {
+                board.querySelectorAll(".box").forEach(function (box) {
+                    showReaction("success", box);
+                });
+            }
             nb++;
         } else if (i > nb) {
-            alert("Erreur, recommencez !");
+            showReaction("error", newbox);
             nb = 1;
             board.querySelectorAll(".box-clicked").forEach(function (validBox) {
                 validBox.classList.remove("box-clicked");
             });
         } else {
-            alert("Case déjà cliquée !");
+            showReaction("notice", newbox);
         }
     });
 }
