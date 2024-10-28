@@ -9,6 +9,8 @@ function shuffleChildren(parent) {
         board.children[k] = board.children[i]; // remplace lélément à la position k par l'élément à la position i
         board.appendChild(temp); // place l'élément k pointé temporairement à la fin du contenu de board
     }
+
+    timer();
 }
 
 function showReaction(type, clickedBox) {
@@ -20,6 +22,29 @@ function showReaction(type, clickedBox) {
         }, 800)
     }
 }
+
+let pb = "00:30";
+let pbList = [];
+
+function timer() { // https://stackoverflow.com/a/31559606
+    var sec = 30;
+    var timer = setInterval(function () {
+        document.getElementById('timerDisplay').innerHTML = '00:' + sec;
+        sec--;
+        if (nb == board.children.length + 1) {
+            pb = '00:' + sec;
+            console.log(pb);
+            clearInterval(timer);
+            pbList.push(pb); // if success
+            console.log(pbList);
+        }
+        if (sec < 0) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+
+const retryBtn = document.getElementById("retryBtn");
 
 let nbBoxes = prompt("Please enter the number of boxes.");
 
@@ -43,17 +68,34 @@ for (let i = 1; i <= nbBoxes; i++) {
                     showReaction("success", box);
                 });
             }
+            // shuffleChildren(board);
             nb++;
-        } else if (i > nb) {
+        }
+        else if (i > nb) {
             showReaction("error", newbox);
             nb = 1;
             board.querySelectorAll(".box-clicked").forEach(function (validBox) {
                 validBox.classList.remove("box-clicked");
             });
-        } else {
+            shuffleChildren(board);
+        }
+        else {
             showReaction("notice", newbox);
         }
     });
-}
+};
+
+retryBtn.addEventListener("click", () => {
+    board.querySelectorAll(".box-clicked").forEach(function (validBox) {
+        validBox.classList.remove("box-clicked");
+        validBox.classList.remove("success");
+    });
+
+    nb = 1;
+
+    shuffleChildren(board);
+
+    console.log("pbList: " + pbList);
+});
 
 shuffleChildren(board); // mélange les enfants de board, soit les div.box

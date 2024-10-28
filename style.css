@@ -32,6 +32,7 @@
 .box.success {
     color: rgb(11, 138, 22);
     background-color: rgb(172, 251, 172);
+    cursor: pointer;
 }
 
 .box.notice {
